@@ -12,6 +12,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Luzifer/go_helpers/str"
 	"github.com/Luzifer/rconfig"
 	log "github.com/sirupsen/logrus"
 )
@@ -215,7 +216,10 @@ func parseRecord(line, defaultZone string, defaultTTL int) (record, error) {
 		rec.TTL = defaultTTL
 	}
 
-	if rec.Type == "TXT" && rec.Data[0] != '"' {
+	if str.StringInSlice(rec.Type, []string{
+		"SPF",
+		"TXT",
+	}) && rec.Data[0] != '"' {
 		rec.Data = fmt.Sprintf("%q", rec.Data)
 	}
 
