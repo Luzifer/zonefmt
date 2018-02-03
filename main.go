@@ -113,7 +113,12 @@ func (r records) Less(i, j int) bool {
 	}
 
 	// Same type, sort by name
-	return r[i].Name < r[j].Name
+	if r[i].Name != r[j].Name {
+		return r[i].Name < r[j].Name
+	}
+
+	// Same name, sort by data
+	return r[i].Data < r[j].Data
 }
 
 func formatZone(zoneFile io.Reader) (io.Reader, error) {
